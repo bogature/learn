@@ -1,0 +1,203 @@
+<div class="vd_content-wrapper">
+  <div class="vd_container">
+    <div class="vd_content clearfix">
+
+      <div class="vd_title-section clearfix">
+        <div class="vd_panel-header">
+          <h1>Навчайтеся з нами</h1>
+          <small class="subtitle">Проходьте тести та слідкуйте за своїм прогресом</small>
+        </div>
+      </div>
+
+      <div class="vd_content-section clearfix">
+        <div class="row">
+
+          <div class="col-xs-12" >
+            <div class="panel widget light-widget">
+              <div class="panel-heading no-title">
+
+              </div>
+              <div class="panel-body">
+
+                <ul class="pagination" *ngIf="listTests.length > 0">
+                  <li *ngFor="let test of listTests let i = index">
+                    <a style="color: green;" *ngIf="activeTest == i+1" (click)="openTest(i)" class="active"><b>{{i+1}}</b></a>
+                    <a *ngIf="activeTest != i+1" (click)="openTest(i)">{{i+1}}</a>
+                  </li>
+                </ul>
+
+                <div *ngIf="test != null">
+                  <div *ngFor="let question of test.listQuestion, let indexQ = index">
+                    <h4><b>{{question.question}}</b></h4>
+                    <div *ngFor="let answ of question.answer, let indexA = index">
+                      <h4 *ngIf="answ.active == null" (click)="setOtvet(question, indexQ, answ, indexA)">{{answ.text}}</h4>
+                      <h4 *ngIf="answ.active != null" style="color: red" (click)="setOtvet(question, indexQ, answ, indexA)"><b>{{answ.text}}</b></h4>
+                    </div>
+                  </div>
+                </div>
+
+
+
+<!--                <div *ngFor="let task of listQuestion, let indexT = index">-->
+
+<!--                  <h4> <b>{{task.question}}</b> </h4>-->
+<!--                  <div *ngIf="listTests[activeMyTest].question[indexT].myAns.length > 0">-->
+<!--                    <div *ngFor="let answer of listTests[activeMyTest].question[indexT].myAns, let indexA = index">-->
+<!--                      <h2 style="color: red" *ngIf="answer.my" (click)="setOtvet(task, indexT, answer, indexA)">{{answer.text}}</h2>-->
+<!--                      <h2 *ngIf="!answer.my" (click)="setOtvet(task, indexT, answer, indexA)">{{answer.text}}</h2>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                  <div *ngIf="listTests[activeMyTest].question[indexT].myAns.length == 0">-->
+<!--                    <div *ngFor="let answer of listAnswer let indexA = index">-->
+<!--                      <h4 (click)="setOtvet(task, indexT, answer, indexA)">{{answer.text}}</h4>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                <h2 class="mgtp&#45;&#45;5">-->
+<!--                  <span class="font-semibold">Тест: </span>-->
+<!--                </h2>-->
+<!--                -->
+<!--                <ul class="pagination" *ngIf="listTests.length > 0">-->
+<!--                  <li *ngFor="let test of listTests let i = index">-->
+<!--                    <a style="color: green;" *ngIf="activeTest == i+1" (click)="openTest(i+1)" class="active"><b>{{i+1}}</b></a>-->
+<!--                    <a *ngIf="activeTest != i+1" (click)="openTest(i+1)">{{i+1}}</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+
+<!--                <hr>-->
+<!--                <div class="row">-->
+
+<!--                  <div class="col-md-6">-->
+<!--                    <h4><b>Питання:</b></h4>-->
+<!--                    <hr>-->
+<!--                    <div *ngFor="let item of listQuestion">-->
+<!--                      <h4> {{item.question}} </h4>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                  <div class="col-md-6">-->
+<!--                    <h4><b>Відповіді:</b></h4>-->
+<!--                    <hr>-->
+<!--                    <div *ngFor="let item of listAnswer">-->
+<!--                      <h4> {{item.text}} </h4>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+<!--                <hr>-->
+
+<!--                <div *ngIf="activeMyTest != null">-->
+<!--                  <div class="col-md-3" *ngIf="!listTests[this.activeMyTest].end">-->
+<!--                    <table class="table">-->
+<!--                      <thead>-->
+<!--                      <tr>-->
+<!--                        <th style="text-align: center" scope="col">№</th>-->
+<!--                        <th style="text-align: center" *ngFor="let item of listAnswer; let i = index" scope="col">{{ upper[i] }}</th>-->
+<!--                      </tr>-->
+<!--                      </thead>-->
+<!--                      <tbody>-->
+<!--                      <tr *ngFor="let question of listQuestion let IndexQ = index">-->
+<!--                        <th>-->
+<!--                          <h5 style="padding: 5px"><b>{{IndexQ + 1}}.</b></h5>-->
+<!--                        </th>-->
+<!--                        <th *ngFor="let answer of listAnswer  let IndexA = index">-->
+<!--                          -->
+<!--                          <div *ngIf="!otvet">-->
+<!--                            <div *ngIf="answer.question != null && answer.question == question.id" (click)="setMyNewAnswer(question, IndexQ, answer, IndexA)" style="border: 2px solid rgba(0,0,0,0.29); height: 22px; width: 22px; text-align: center" class="brd">-->
+<!--                              <img height="16px" src="assets/style/img/crest.png" alt="">-->
+<!--                            </div>-->
+<!--                            <div *ngIf="answer.question != question.id" (click)="setMyNewAnswer(question, IndexQ, answer, IndexA)" style="border: 2px solid rgba(0,0,0,0.29); height: 22px; width: 22px; text-align: center" class="brd">-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          -->
+<!--                        </th>-->
+<!--                      </tr>-->
+<!--                      </tbody>-->
+<!--                    </table>-->
+<!--                  </div>-->
+
+<!--                  <div class="col-md-3" *ngIf="listTests[this.activeMyTest].end">-->
+<!--                    <table class="table">-->
+<!--                      <thead>-->
+<!--                      <tr>-->
+<!--                        <th style="text-align: center" scope="col">№</th>-->
+<!--                        <th style="text-align: center" *ngFor="let item of listAnswer; let i = index" scope="col">{{ upper[i] }}</th>-->
+<!--                      </tr>-->
+<!--                      </thead>-->
+<!--                      <tbody>-->
+<!--                      <tr *ngFor="let question of listQuestion let IndexQ = index">-->
+<!--                        <th>-->
+<!--                          <h5 style="padding: 5px"><b>{{IndexQ + 1}}.</b></h5>-->
+<!--                        </th>-->
+<!--                        <th *ngFor="let answer of listAnswer  let IndexA = index">-->
+
+<!--                          <div *ngIf="answer.question != null && answer.question == question.id && answer.valid" style="border: 2px solid rgba(70,214,6,0.87); height: 22px; width: 22px; text-align: center" class="brd">-->
+<!--                            <img height="16px" src="assets/style/img/crest.png" alt="">-->
+<!--                          </div>-->
+
+<!--                          <div *ngIf="answer.question != null && answer.question == question.id && !answer.valid" style="border: 2px solid rgba(214,0,12,0.87); height: 22px; width: 22px; text-align: center" class="brd">-->
+<!--                            <img height="16px" src="assets/style/img/crest.png" alt="">-->
+<!--                          </div>-->
+
+<!--                          <div *ngIf="answer.myCorrectQuestion == question.id && answer.valid != null" style="border: 2px solid rgba(214,7,146,0.87); height: 22px; width: 22px; text-align: center" class="brd">-->
+
+<!--                          </div>-->
+
+<!--                          <div *ngIf="answer.myCorrectQuestion != question.id  && answer.question != question.id" style="border: 2px solid rgba(0,0,0,0.29); height: 22px; width: 22px; text-align: center" class="brd">-->
+<!--                          </div>-->
+
+<!--                        </th>-->
+<!--                      </tr>-->
+<!--                      </tbody>-->
+<!--                    </table>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+
+
+<!--                <hr>-->
+<!--                -->
+
+<!--                <div class="col-md-12">-->
+<!--                  <br>-->
+<!--                  <a (click)="Otvet()">Ответить</a>-->
+<!--                </div>-->
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

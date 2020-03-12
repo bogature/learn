@@ -1,0 +1,505 @@
+
+        <div class="panel-body">
+
+<a routerLink="">Головна</a>
+
+<div style="padding-top: 30px" class="container">
+  <div class="row">
+
+    <div class="col-md-4">
+      <h4>Категорії:</h4>
+      <hr>
+      <div *ngFor="let category of categories">
+        <a (click)="getListSubCategory(category.id, '1')">{{category.name}}</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Підкатегорії:</h4>
+      <hr>
+      <div *ngFor="let sub of subCategoryies">
+        <a (click)="getListTopic(sub.id, '1')">{{sub.name}}</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Теми:</h4>
+      <hr>
+      <div *ngFor="let topic of topics">
+        <a (click)="getListTest(topic.id, topic.name, '1')">{{topic.name}}</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!--<div class="container">-->
+<!--  <hr>-->
+<!--  <h4>Створити тест: ({{activeTopic.name}})</h4>-->
+
+<!--  <div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--&lt;!&ndash;      <form class="container" [formGroup]="addTestForm" (ngSubmit)="createTest()">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <img style="width: 200px" [src]="imageUrl" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;              <label>Питання:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;              <angular-editor id="q1" formControlName="question" [config]="editorConfig"></angular-editor>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;              <label>Відповідь:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;              <angular-editor id="a1" formControlName="help" [config]="editorConfig"></angular-editor>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <br>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="btn-web ">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <button type="submit">Створити тест</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            <button (click)="newTest()">Зберегти</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </form>&ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+
+<!--&lt;!&ndash;      <form class="container" [formGroup]="addCorrectAnswerForm" (ngSubmit)="addCorrectAnswer()">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;          <label>Коректна відповідь:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="text"  class="form-control" formControlName="text">&ndash;&gt;-->
+<!--&lt;!&ndash;          <br>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="btn-web ">&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit">Відправити</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <form class="container" [formGroup]="addOthersAnswerForm" (ngSubmit)="addOthersAnswer()">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;          <label>Інша відповідь:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="text"  class="form-control" formControlName="text">&ndash;&gt;-->
+<!--&lt;!&ndash;          <br>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="btn-web ">&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit">Відправити</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </form>&ndash;&gt;-->
+
+
+<!--    </div>-->
+<!--  </div>-->
+<!--  <hr>-->
+
+<!--&lt;!&ndash;  <h4 [innerHTML]="question.question"></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;  <h4 [innerHTML]="question.help"></h4>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;      <h5>Правильні: </h5>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div *ngFor="let item of correctAnswer">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h5>{{item}}</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;      <h5>Не правильні: </h5>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div *ngFor="let item of othersAnswer">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h5>{{item}}</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+
+
+
+<!--&lt;!&ndash;  <button (click)="setPatchTest('1')">Оновити відповіді</button>&ndash;&gt;-->
+
+
+<!--  <hr>-->
+<!--&lt;!&ndash;  <form class="container" [formGroup]="createAnswerForm" (ngSubmit)="btnCreateAnswer()">&ndash;&gt;-->
+<!--&lt;!&ndash;    <img style="width: 200px" [src]="imageUrl" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">&ndash;&gt;-->
+<!--&lt;!&ndash;    <label>Відповідь:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <angular-editor id="editor3" formControlName="text" [config]="editorConfig"></angular-editor>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="checkbox" formControlName="corect" checked>&ndash;&gt;-->
+<!--&lt;!&ndash;    <br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button type="submit">Отпраить</button>&ndash;&gt;-->
+<!--&lt;!&ndash;  </form>&ndash;&gt;-->
+
+
+
+<!--<hr>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+<!--  <div class="row">-->
+
+<!--    <button (click)="createNewTest()">Створити Тест</button>-->
+<!--    <br>-->
+<!--    <button (click)="createTask()">Створити Завдання</button>-->
+<!--    <br>-->
+<!--    <button (click)="setPatchTest('19')">Зберегти завдання в тест 19</button>-->
+<!--    <br>-->
+<!--    <button (click)="patchTask('22')">Зберегти відповіді до завдання 22</button>-->
+
+
+<!--&lt;!&ndash;    <a (click)="createTask()">New Task !</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a (click)="setPatchTest('19')">Set patch Test !</a>&ndash;&gt;-->
+<!--    <br>-->
+<!--&lt;!&ndash;    <a (click)="patchTask('18')">Set patch Task !</a>&ndash;&gt;-->
+
+<!--    <hr>-->
+
+<!--    <h5>Список тасків:</h5>-->
+<!--    <div *ngFor="let item of listIdNewTasks">-->
+<!--      {{item}}-->
+<!--    </div>-->
+
+<!--    <hr>-->
+
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12" *ngFor="let test of tests; let i = index" >
+      <hr>
+      <div class="row">
+        <div class="col-md-5">
+
+          <h4 (click)="setIdTask(test.id)"> Тест ID: {{ test.id }} </h4>
+
+          <div *ngFor="let task of test.task">
+            <h5 (click)="setIdTest(task.id)"><b style="color: yellow">({{task.id}}) Питання</b> {{task.question}}</h5>
+
+            <div *ngFor="let item of task.correct_answer">
+              <img *ngIf="item.img != null " style="width: 100px" [src]="item.img" alt="">
+              <p style="color: green">{{item.text}}</p>
+            </div>
+
+            <div *ngFor="let item of task.others_answer">
+              <img *ngIf="item.img != null " style="width: 100px" [src]="item.img" alt="">
+              <p>{{item.text}}</p>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-md-7">
+          <h6 (click)="examTest(i)"><b>Тест: {{test.id}}</b></h6>
+
+          <div class="row">
+            <div class="col-md-6">
+              <h6><b>Питання:</b></h6>
+              <div *ngFor="let test of test.task">
+                <h6>{{test.question}}</h6>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6><b>Відповіді:</b></h6>
+
+              <div *ngFor="let task of test.task">
+                <div *ngFor="let item of task.correct_answer">
+                  <img *ngIf="item.img != null " style="width: 100px" [src]="item.img" alt="">
+                  <h6 style="color: green">{{item.text}}</h6>
+                </div>
+                <div *ngFor="let item of task.others_answer">
+                  <img *ngIf="item.img != null " style="width: 100px" [src]="item.img" alt="">
+                  <h6>{{item.text}}</h6>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <hr>
+<!--              <div *ngFor="let task of test.task">-->
+<!--                +-->
+<!--                <div *ngFor="let item of task.correct_answer">-->
+<!--                  - -->
+<!--                </div>-->
+<!--                <div *ngFor="let item of task.others_answer">-->
+<!--                  - -->
+<!--                </div>-->
+<!--              </div>-->
+
+              <table class="table table-bordered">
+                <tbody>
+                <tr *ngFor="let task of test.task">
+                  <th *ngFor="let item of [].constructor(examAnswer.length); let i = index">
+                    <button> + </button>
+                  </th>
+                </tr>
+                </tbody>
+              </table>
+
+              <hr>
+            </div>
+          </div>
+
+<!--          <form class="container" [formGroup]="createAnswerForm" (ngSubmit)="btnCreateAnswer()">-->
+<!--            <img style="width: 200px" [src]="imageUrl" alt="">-->
+<!--            <a (click)="cleanImg()">Clean</a>-->
+<!--            <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">-->
+<!--            <label>Відповідь:</label>-->
+<!--            <angular-editor id="vid{{test.id}}" formControlName="text" [config]="editorConfig"></angular-editor>-->
+<!--            <input type="checkbox" id="chec{{test.id}}" formControlName="corect" checked>-->
+<!--            <br>-->
+<!--            <button id="btn1{{test.id}}" type="submit">Отпраить</button>-->
+<!--          </form>-->
+
+<!--          <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--              <h5>Правильні: </h5>-->
+<!--              <div *ngFor="let item of correctAnswer">-->
+<!--                <h5>{{item}}</h5>-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="col-md-6">-->
+<!--              <h5>Не правильні: </h5>-->
+<!--              <div *ngFor="let item of othersAnswer">-->
+<!--                <h5>{{item}}</h5>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <button id="btn2{{test.id}}" (click)="setPatchTest(test.id)">Оновити відповіді</button>-->
+<!--        </div>-->
+      </div>
+      <hr>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--&lt;!&ndash;    <hr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;      <h4>Створити тест: ({{activeTopic.name}})</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;      <button (click)="createNewTest()">Створити Тест</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <hr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <hr>&ndash;&gt;-->
+<!--    <div>-->
+<!--      <form class="container" [formGroup]="addTestForm" (ngSubmit)="createTest()">-->
+<!--        <div class="form-group">-->
+
+<!--          <img style="width: 100px" [src]="imageUrl" alt="">-->
+<!--          <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">-->
+
+<!--          <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--              <label>Питання:</label>-->
+<!--              <angular-editor id="q2" formControlName="question" [config]="editorConfig"></angular-editor>-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--              <label>Відповідь:</label>-->
+<!--              <angular-editor id="h2" formControlName="help" [config]="editorConfig"></angular-editor>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <br>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="btn-web ">&ndash;&gt;-->
+<!--            &lt;!&ndash;            <button type="submit">Створити тест</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button (click)="newTest()">Зберегти</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </form>-->
+
+<!--      <button (click)="createTask()">Створити Завдання</button>-->
+
+<!--      <h5>Список завдань:</h5>-->
+<!--      <div *ngFor="let item of listIdNewTasks">-->
+<!--        {{item}}-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--    <hr>-->
+
+<!--    <hr>-->
+<!--    <button (click)="setPatchTest(saveTaskId)">Зберегти завдання в тест {{saveTaskId}}</button>-->
+<!--    <hr>-->
+<!--    <hr>-->
+
+<!--    <form class="container" [formGroup]="createAnswerForm" (ngSubmit)="btnCreateAnswer()">-->
+<!--      <img style="width: 200px" [src]="imageUrl" alt="">-->
+<!--      <a (click)="cleanImg()">Clean</a>-->
+<!--      <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">-->
+<!--      <label>Відповідь:</label>-->
+<!--      <angular-editor id="vid22222222222" formControlName="text" [config]="editorConfig"></angular-editor>-->
+<!--      <input type="checkbox" id="chec222222222" formControlName="corect" checked>-->
+<!--      <br>-->
+<!--      <button id="btn11" type="submit">Отпраить</button>-->
+<!--    </form>-->
+
+<!--    <div class="row">-->
+<!--      <div class="col-md-6">-->
+<!--        <h5>Правильні: </h5>-->
+<!--        <div *ngFor="let item of correctAnswer">-->
+<!--          <h5>{{item}}</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="col-md-6">-->
+<!--        <h5>Не правильні: </h5>-->
+<!--        <div *ngFor="let item of othersAnswer">-->
+<!--          <h5>{{item}}</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <button (click)="patchTask(saveTestId)">Зберегти відповіді до завдання {{saveTestId}}</button>-->
+
+<!--&lt;!&ndash;    <button (click)="setPatchTest(saveTestId)">Зберегти завдання в тест {{saveTestId}}</button>&ndash;&gt;-->
+<!--    <hr>-->
+<!--  </div>-->
+<!--  <br>-->
+<!--</div>-->
+
+
+<div class="container">
+  <hr>
+    <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Створити тест
+            </button>
+          </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+            <h4>Створити тест для теми: <b>{{activeTopic.name}}</b> </h4>
+            <button (click)="createNewTest()" class="btn btn-primary">Створити Тест</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Створити завдання
+            </button>
+          </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+          <div class="card-body">
+
+            <form class="container" [formGroup]="addTestForm" (ngSubmit)="createTest()">
+              <div class="form-group">
+
+                <label><b>Файл:</b></label>
+                <img style="width: 100px" [src]="imageUrl" alt="">
+                <a (click)="cleanImg()">Clean</a>
+                <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><b>Питання:</b></label>
+                    <angular-editor id="q-2" formControlName="question" [config]="editorConfig"></angular-editor>
+                    <br>
+                  </div>
+                  <div class="col-md-12">
+                    <label><b>Допомога:</b></label>
+                    <angular-editor id="h-2" formControlName="help" [config]="editorConfig"></angular-editor>
+                  </div>
+                </div>
+
+                <br>
+              </div>
+            </form>
+            <button (click)="createTask()" class="btn btn-success">Створити Завдання</button>
+
+            <h5>Список завдань:</h5>
+            <div *ngFor="let item of listIdNewTasks">
+              {{item}}
+            </div>
+
+            <button (click)="setPatchTest(saveTaskId)" class="btn btn-info">Зберегти завдання в тест (ID: {{saveTaskId}})</button>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingThree3">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree3" aria-expanded="false" aria-controls="collapseThree3">
+              Створити відповіді
+            </button>
+          </h2>
+        </div>
+        <div id="collapseThree3" class="collapse" aria-labelledby="headingThree3" data-parent="#accordionExample">
+          <div class="card-body">
+
+            <form class="container" [formGroup]="createAnswerForm" (ngSubmit)="btnCreateAnswer()">
+              <div>
+                <img style="width: 200px" [src]="imageUrl" alt="">
+                <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+                <a (click)="cleanImg()">Clean</a>
+                <br>
+              </div>
+
+              <label><b>Відповідь:</b></label>
+              <angular-editor id="v" formControlName="text" [config]="editorConfig"></angular-editor>
+              <label><b>Правильна:</b></label>
+              <input type="checkbox" id="c" formControlName="corect" checked>
+              <br>
+              <button class="btn btn-primary" id="b" type="submit">Отпраить</button>
+              <br>
+            </form>
+
+            <div class="row">
+              <hr>
+              <div class="col-md-6">
+                <hr>
+                <h5><b>Правильні:</b></h5>
+                <div *ngFor="let item of correctAnswer">
+                  <h5>{{item}}</h5>
+                </div>
+                <hr>
+              </div>
+
+              <div class="col-md-6">
+                <hr>
+                <h5><b>Не правильні:</b></h5>
+                <div *ngFor="let item of othersAnswer">
+                  <h5>{{item}}</h5>
+                </div>
+                <hr>
+              </div>
+            </div>
+            <br>
+            <button (click)="patchTask(saveTestId)" class="btn btn-dark">Зберегти відповіді до завдання (ID: {{saveTestId}})</button>
+<!--            <button (click)="patchTask(saveTestId)">Зберегти відповіді до завдання {{saveTestId}}</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+</div>
+</div>

@@ -1,0 +1,47 @@
+
+
+<div class="vd_content-wrapper">
+  <div class="vd_container">
+    <div class="vd_content clearfix">
+
+      <div class="vd_title-section clearfix">
+        <div class="vd_panel-header">
+          <h1>Навчайтеся з нами</h1>
+          <small class="subtitle">Проходьте тести та слідкуйте за своїм прогресом</small>
+        </div>
+      </div>
+
+      <div class="vd_content-section clearfix">
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="panel widget light-widget panel-bd-top">
+              <div class="panel-heading no-title"> </div>
+              <div class="panel-body">
+                <h3 class="mgtp--5"> Тести: </h3>
+                <div class="content-list">
+                  <ul  class="list-wrapper">
+
+                    <li *ngFor="let topic of topics">
+                      <a style="padding-left: 10px" routerLink="/examination/{{topic.id}}">
+                        <div class="menu-icon vd_yellow"><i class="fa fa-suitcase"></i></div>
+                        <div class="menu-text"> {{topic.name}}
+                          <div class="menu-info"><span class="menu-date">12 завдань</span></div>
+                        </div>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Panel Widget -->
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
