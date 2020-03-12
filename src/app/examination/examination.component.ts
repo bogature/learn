@@ -88,15 +88,12 @@ export class ExaminationComponent implements OnInit {
 
   setOtvet(question: any, indexQ: number, answer: any, indexA: number) {
 
-    console.log('rez = ');
-    console.log(this.listTests[this.activeMyTest].listQuestion[indexQ].answer[indexA].active);
-
-    // this.listTests[this.activeMyTest].listQuestion[indexQ].answer[indexA].active = false;
-    console.log(this.listTests[this.activeMyTest].listQuestion[indexQ]);
-
-    for (const el of this.listTests[this.activeMyTest].listQuestion.filter(elem => elem.index === indexQ)) {
-      el.answer.filter(item => item.id === answer.id)[0].active = true;
-    }
+    this.listTests[this.activeMyTest].listQuestion[indexQ].answer[indexA].active = false;
+    // console.log(this.listTests[this.activeMyTest].listQuestion[indexQ]);
+    //
+    // for (const el of this.listTests[this.activeMyTest].listQuestion.filter(elem => elem.index === indexQ)) {
+    //   el.answer.filter(item => item.id === answer.id)[0].active = true;
+    // }
 
     console.log('Rez');
     console.log(this.listTests);
