@@ -47,6 +47,7 @@ export class AppComponent {
   }
 
   getListTopic = (id, page) => {
+    this.subCategoryies = [];
     this.router.navigate(['/topic/' + id]);
   }
 

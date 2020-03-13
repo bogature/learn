@@ -4,6 +4,7 @@ import {CoursesService} from '../services/courses.service';
 import {Test} from '../model/test';
 import {log} from 'util';
 import {of} from 'rxjs';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-examination',
@@ -21,6 +22,14 @@ export class ExaminationComponent implements OnInit {
   test = null;
   listTests: Test[] = [];
   activeMyTest = null;
+  activeMyQuestion = null;
+
+  listAnser = [];
+  listQuestion = [];
+  listTask = [];
+  listAnswer = [];
+
+  text = '';
 
 
   constructor(private api: CoursesService, private router: ActivatedRoute) {}
@@ -47,33 +56,32 @@ export class ExaminationComponent implements OnInit {
     this.tests = [];
     this.api.getListTest(id, page).subscribe(
       data => {
-        console.log(data.results);
-        const listTest = [];
-
         for (const test of data.results) {
-          const questions = [];
+          this.listQuestion = [];
           const answer = [];
+          const listAnswer = [];
           for (const task of test.task) {
-            questions.push(task.question);
+
             for (const item of task.others_answer) {
-              answer.push({id: item.id, text: item.text, active: null});
+              answer.push({id: item.id, question: null, text: item.text, correct: false});
+              listAnswer.push(null);
             }
             for (const item of task.correct_answer) {
-              answer.push({id: item.id, text: item.text, active: null});
+              answer.push({id: item.id, question: task.question, text: item.text, correct: true});
+              listAnswer.push(null);
             }
+
+            const answerRez = this.shuffle(answer);
+
+            this.listQuestion.push({question: task.question, answer: listAnswer, correctAns: answerRez, countCorrect:  task.correct_answer.length});
           }
 
-          const listQuestion = [];
-
-          for (let i = 0; i < questions.length; i++) {
-            listQuestion.push({question: questions[i], index: i, answer});
-          }
-          console.log(listQuestion);
-          listTest.push({test: test.id, topic: test.topic, listQuestion});
+          this.listTask.push({test: test.id, question: this.listQuestion});
         }
-        console.log(listTest);
 
-        this.listTests = listTest;
+        console.log('rez');
+        console.log(this.listTask);
+        this.listQuestion = []
       },
       error => {
         console.log(error);
@@ -83,23 +91,45 @@ export class ExaminationComponent implements OnInit {
 
   openTest(id: number) {
     this.activeMyTest = id;
-    this.test = this.listTests[id];
+    this.test = this.listTask[id];
+    this.listQuestion = [];
+    this.listQuestion = this.listTask[id].question;
+    this.listAnswer = this.listTask[id].question[0].correctAns;
   }
 
   setOtvet(question: any, indexQ: number, answer: any, indexA: number) {
 
-    this.listTests[this.activeMyTest].listQuestion[indexQ].answer[indexA].active = false;
-    // console.log(this.listTests[this.activeMyTest].listQuestion[indexQ]);
-    //
-    // for (const el of this.listTests[this.activeMyTest].listQuestion.filter(elem => elem.index === indexQ)) {
-    //   el.answer.filter(item => item.id === answer.id)[0].active = true;
-    // }
+    const listAns = [];
 
-    console.log('Rez');
-    console.log(this.listTests);
+    for (const el of this.listTask[this.activeMyTest].question[indexQ].answer) {
+      listAns.push(el);
+    }
+  
+    if (listAns[indexA] == null) {
+      if (this.listTask[this.activeMyTest].question[indexQ].answer.filter(el => el !== null).length < this.listTask[this.activeMyTest].question[indexQ].countCorrect) {
+        listAns[indexA] = true;
+        this.text = '';
+      } else {
+        this.text = 'Кількість правильних відповідей: ' + this.listTask[this.activeMyTest].question[indexQ].countCorrect;
+      }
+    } else {
+      listAns[indexA] = null;
+      this.text = '';
+    }
 
+    this.listTask[this.activeMyTest].question[indexQ].answer = listAns;
   }
 
 
+  saveTest() {
+    this.listTask[this.activeMyTest].end = true;
+    this.test = this.listTask[this.activeMyTest];
+  }
+
+  nextTest() {
+    if  (this.listTask.length > this.activeMyTest + 1){
+      this.openTest(this.activeMyTest + 1);
+    }
+  }
 
 }
